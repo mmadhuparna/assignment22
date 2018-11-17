@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,400,300,600,700%7CRaleway:700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Product List</title>
+
+    <style>
+        body{
+        font-family: 'Open Sans';
+         
+ }
+        .btn-primary{
+            
+            padding: 2px 8px;
+        }
+        span{
+            font-size: 18px;
+        }
+        .top{
+            border-bottom: 1px solid grey;
+           
+        }
+        .bottom{
+            margin-top: 20px;
+        }
+ 
+        .add{
+            margin-top: 20px;
+            background-color: rgb(212, 200, 200);
+            color: black;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="top row">
+            <div class="col-md-4 col-md-offset-1">
+                <button class="btn"><a href="/new">Add a Product</a></button>
+                <button type="submit" class="btn"><a href="/addmore">Add More</a></button>
+            </div>
+            <div class="col-md-4">
+                <h1 >Product List</h1>
+            </div>
+        </div>
+
+        <div class="bottom row">
+            <div class="col-md-8 col-md-offset-2" >
+                
+            <% for (var i in Product) { %> 
+            <div class="row">
+                <div class="col-md-3 col-md-offset-1">
+                    <span><%= Product[i].pname %></span></div>
+                    <div class="col-md-3 col-md-offset-1">
+                    <a href="/Product/<%= Product[i]._id %>" >View </a>&nbsp; 
+                    <a href="/Product/edit/<%= Product[i]._id %>" >Edit</a> 
+                </div>
+                <div class="col-md-3 col-md-offset-1">
+                    <form action="/Product/delete/<%= Product[i]._id %>" method="post">
+                        
+                    <!--condition to disable button if product is available-->
+                    <% if(Product[i].quantity !== 0){ %>
+                    <input type="button"  class="btn btn-primary btn-danger" value="Delete" disabled />
+                    <% } else { %>
+                    <input type="button"  class="btn btn-primary btn-danger" value="Delete" />
+                    
+                  <% } %>
+                    </form></div>
+                </div>
+                    <hr>
+                <% } %>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
